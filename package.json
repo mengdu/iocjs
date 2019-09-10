@@ -1,0 +1,40 @@
+{
+  "name": "locjs",
+  "version": "0.1.0",
+  "description": "Implements inversion of control and dependency injection base on javascript",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "nodemon --watch ./**/* -e ts,tsx -i src/typings/**/* --exec node -r ts-node/register examples/demo.ts",
+    "dev-debug": "nodemon --inspect --watch src/**/* -e ts,tsx -i src/typings/**/* --exec node -r ts-node/register src/index.ts",
+    "clean": "rm dest -rf",
+    "compile": "npm run clean && tsc",
+    "build": "npm run lint && npm run compile",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src --ext .js,.ts",
+    "lintfix": "eslint src --fix --ext .js,.ts"
+  },
+  "keywords": [
+    "loC",
+    "DI",
+    "inject",
+    "injection"
+  ],
+  "author": "lanyueos@qq.com",
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.2.0",
+    "@typescript-eslint/parser": "^2.2.0",
+    "eslint": "^6.3.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.6.2"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
+  }
+}

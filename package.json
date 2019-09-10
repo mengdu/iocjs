@@ -4,7 +4,7 @@
   "description": "Implements inversion of control and dependency injection base on javascript",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "nodemon --watch ./**/* -e ts,tsx -i src/typings/**/* --exec node -r ts-node/register examples/demo.ts",
+    "dev": "nodemon --watch ./examples/**/*,./src/**/* -e ts,tsx -i src/typings/**/* --exec node -r ts-node/register examples/demo.ts",
     "dev-debug": "nodemon --inspect --watch src/**/* -e ts,tsx -i src/typings/**/* --exec node -r ts-node/register src/index.ts",
     "clean": "rm dest -rf",
     "compile": "npm run clean && tsc",

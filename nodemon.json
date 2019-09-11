@@ -1,0 +1,21 @@
+{
+  "restartable": "rs",
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules"
+  ],
+  "verbose": true,
+  "execMap": {
+    "ts": "node -r ts-node/register examples/demo.ts"
+  },
+  "events": {
+  },
+  "watch": [
+    "examples/",
+    "src/"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "ts"
+}

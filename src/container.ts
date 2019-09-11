@@ -1,43 +1,60 @@
-import 'reflect-metadata'
 import { Type } from './interfaces'
-import { getConstructorParams, getPropertyTypeMap } from './meta'
+import { getInjectConstructor, getPropertyTypeMap } from './meta'
 
 class Container {
-  private readonly providers: Set<any> = new Set();
+  private readonly providers: Map<any, any> = new Map();
   private readonly instances: Map<any, any> = new Map();
 
-  get <T> (provider: Type<T>): T {
-    if (this.instances.has(provider)) return this.instances.get(provider)
+  get <T> (id: Type<T> | string): T {
+    const identifier = id
 
-    return this.createInstance(provider)
+    if (this.instances.has(identifier)) {
+      return this.instances.get(identifier)
+    }
+
+    return this.createInstance(identifier)
   }
 
-  set <T> (provider: T) {
-    this.providers.add(provider)
+  set (id: any, provider?: any) {
+    if (typeof provider !== 'undefined') {
+      this.providers.set(id, provider)
+    } else {
+      this.providers.set(id, id)
+    }
   }
 
-  has<T> (provider: T): boolean {
-    return this.providers.has(provider)
+  has (id: any): boolean {
+    return this.providers.has(id)
   }
 
-  private createInstance<T> (provider: Type<T>): T {
-    if (!this.providers.has(provider)) throw new Error(`Undefined dependencies '${provider.name}' cannot be instantiated`)
+  private createInstance<T> (identifier: any): T {
+    if (!this.providers.has(identifier)) {
+      throw new Error(`Undefined dependencies '${identifier.name || identifier}' please declare it in the container before injection.`)
+    }
 
-    // 获取构造函数参数
-    const paramtypes = getConstructorParams(provider)
+    const Provider = this.providers.get(identifier)
 
-    const constructorParams = paramtypes.map(e => this.get(e))
+    // 非函数类型直接返回值
+    if (typeof Provider !== 'function') {
+      return Provider
+    }
 
-    const instance = new provider(...constructorParams)
+    const inject = getInjectConstructor(Provider)
+
+    const constructorParams = inject.args.map(e => this.get(e))
+
+    // 实例化依赖
+    const instance = new Provider(...constructorParams)
 
     // 获取注入属性
     const propertyTypeMap = getPropertyTypeMap(instance)
 
+    // 注入属性
     propertyTypeMap.forEach((value, key) => {
       instance[key] = this.get(value)
     })
 
-    this.instances.set(provider, instance)
+    this.instances.set(identifier, instance)
 
     return instance
   }

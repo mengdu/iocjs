@@ -1,2 +1,2 @@
-export const CONSTRUCTOR_PARAMS = 'constructor:params'
+export const INJECT_CONSTRUCTOR = 'inject:constructor'
 export const PROPERTY_TYPE = 'target:property:type'

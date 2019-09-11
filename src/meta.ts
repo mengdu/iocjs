@@ -1,19 +1,20 @@
 import 'reflect-metadata'
-import { PROPERTY_TYPE, CONSTRUCTOR_PARAMS } from './constants'
+import { PROPERTY_TYPE, INJECT_CONSTRUCTOR } from './constants'
 
+// 获取构造函数参数类型（ts才有）
 export const getClassParamtypes = function (target: any): any[] {
   return Reflect.getMetadata('design:paramtypes', target) || []
 }
 
-export const getConstructorParams = function (target: any): any[] {
-  return Reflect.getMetadata(CONSTRUCTOR_PARAMS, target) || []
+export const getInjectConstructor = function (target: any): { args: any[] } {
+  return Reflect.getMetadata(INJECT_CONSTRUCTOR, target) || { args: [] }
 }
 
-export const setConstructorParams = function (target: any, value: any) {
-  Reflect.defineMetadata(CONSTRUCTOR_PARAMS, value, target)
+export const setInjectConstructor = function (target: any, value: any) {
+  Reflect.defineMetadata(INJECT_CONSTRUCTOR, value, target)
 }
 
-// 获取属性的类型/值
+// 获取属性的类型
 export const getPropertyType = function (target: any, property: string): any {
   return Reflect.getMetadata('design:type', target, property)
 }

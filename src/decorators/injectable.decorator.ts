@@ -1,9 +1,9 @@
-import { getClassParamtypes, setConstructorParams } from '../meta'
+import { getClassParamtypes, setInjectConstructor } from '../meta'
 
 export default function Injectable () {
   return function (target: any) {
     const paramTypes = getClassParamtypes(target)
 
-    setConstructorParams(target, paramTypes)
+    setInjectConstructor(target, { args: paramTypes })
   }
 }

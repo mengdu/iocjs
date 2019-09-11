@@ -16,6 +16,8 @@ class Container {
   }
 
   set (id: any, provider?: any) {
+    if (this.has(id)) throw new Error(`Dependency '${id.name || id}' cannot be reinjected`)
+
     if (typeof provider !== 'undefined') {
       this.providers.set(id, provider)
     } else {
@@ -41,6 +43,11 @@ class Container {
 
     const inject = getInjectConstructor(Provider)
 
+    // 如果定义了id注入，则注入一个id
+    if (inject.id && !this.has(inject.id)) {
+      this.set(inject.id, Provider)
+    }
+
     const constructorParams = inject.args.map(e => this.get(e))
 
     // 实例化依赖
@@ -51,7 +58,8 @@ class Container {
 
     // 注入属性
     propertyTypeMap.forEach((value, key) => {
-      instance[key] = this.get(value)
+      // 优先使用id查依赖
+      instance[key] = this.get(value.id || value.type)
     })
 
     this.instances.set(identifier, instance)

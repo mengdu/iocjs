@@ -6,7 +6,7 @@ export const getClassParamtypes = function (target: any): any[] {
   return Reflect.getMetadata('design:paramtypes', target) || []
 }
 
-export const getInjectConstructor = function (target: any): { args: any[] } {
+export const getInjectConstructor = function (target: any): { id?: string, args: any[] } {
   return Reflect.getMetadata(INJECT_CONSTRUCTOR, target) || { args: [] }
 }
 

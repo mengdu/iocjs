@@ -2,7 +2,9 @@
 
 通过 typescript 实现的控制反转依赖注入
 
+
 > 目前仅是个探索例子
+
 
 ```ts
 import { Container, Inject, Injectable } from 'locjs'
@@ -13,8 +15,16 @@ class Engine {
   }
 }
 
+const config = {
+  card: 10001,
+  key: 123456
+}
+
 @Injectable()
 class Cat {
+  @Inject('CONFIG')
+  readonly options;
+
   constructor (private readonly engine: Engine) {}
 
   start () {
@@ -29,11 +39,13 @@ class Cat {
 const container = new Container()
 
 container.set(Engine)
+container.set('CONFIG', config)
 container.set(Cat)
 
 const cat = container.get(Cat)
 
 cat.start() // start Engine
+cat.options === config // true
 ```
 
 ### API
@@ -50,3 +62,13 @@ cat.start() // start Engine
   + `container.hasInstance(id: any)` 判断是否存在提供者实例
   + `container.remove(id: any)` 移除一个提供者
   + `container.destroyInstance(id: any)` 销毁提供者实例
+
+
+## Other
+
+参考：
+
++ [injection](https://github.com/midwayjs/injection)
++ [依赖注入](https://midwayjs.org/midway/ioc.html)
++ [kingfolk/dilight](https://github.com/kingfolk/dilight)
++ [Typescript之 200行实现依赖注入](https://zhuanlan.zhihu.com/p/59771686)

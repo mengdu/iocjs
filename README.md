@@ -2,6 +2,8 @@
 
 通过 typescript 实现的控制反转依赖注入
 
+> 目前仅是个探索例子
+
 ```ts
 import { Container, Inject, Injectable } from 'locjs'
 

@@ -29,6 +29,10 @@ class Container {
     return this.providers.has(id)
   }
 
+  hasInstance (id: any): boolean {
+    return this.instances.has(id)
+  }
+
   private createInstance<T> (identifier: any): T {
     if (!this.providers.has(identifier)) {
       throw new Error(`Undefined dependencies '${identifier.name || identifier}' please declare it in the container before injection.`)
@@ -65,6 +69,14 @@ class Container {
     this.instances.set(identifier, instance)
 
     return instance
+  }
+
+  remove (id: any) {
+    this.providers.delete(id)
+  }
+
+  destroyInstance (id: any) {
+    this.instances.delete(id)
   }
 }
 

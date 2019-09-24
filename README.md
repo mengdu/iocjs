@@ -21,7 +21,7 @@ const config = {
 }
 
 @Injectable()
-class Cat {
+class Car {
   @Inject('CONFIG')
   readonly options;
 
@@ -40,12 +40,12 @@ const container = new Container()
 
 container.set(Engine)
 container.set('CONFIG', config)
-container.set(Cat)
+container.set(Car)
 
-const cat = container.get(Cat)
+const car = container.get(Car)
 
-cat.start() // start Engine
-cat.options === config // true
+car.start() // start Engine
+car.options === config // true
 ```
 
 ### API

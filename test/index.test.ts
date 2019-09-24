@@ -9,36 +9,36 @@ describe('test Container', () => {
 
   test('container.get getting the same key must be the same', () => {
     const container = new Container()
-    class Cat {}
-    container.set(Cat)
-    container.set('cat', Cat)
+    class Car {}
+    container.set(Car)
+    container.set('car', Car)
     
-    const cat1 = container.get(Cat)
-    const cat2 = container.get(Cat)
+    const car1 = container.get(Car)
+    const car2 = container.get(Car)
 
-    expect(cat1 === cat2).toBe(true)
-    expect(container.get('cat') === container.get('cat')).toBe(true)
-    expect(cat1 === container.get('cat')).toBe(false)
+    expect(car1 === car2).toBe(true)
+    expect(container.get('car') === container.get('car')).toBe(true)
+    expect(car1 === container.get('car')).toBe(false)
 
-    expect(cat1.constructor === Cat).toBe(true)
-    expect(container.get('cat').constructor === Cat).toBe(true)
+    expect(car1.constructor === Car).toBe(true)
+    expect(container.get('car').constructor === Car).toBe(true)
   })
 
   test('container.has, hasInstance', () => {
     const container = new Container()
-    class Cat {}
-    container.set(Cat)
-    container.set('cat', Cat)
+    class Car {}
+    container.set(Car)
+    container.set('car', Car)
 
-    expect(container.has(Cat)).toBe(true)
-    expect(container.has('cat')).toBe(true)
+    expect(container.has(Car)).toBe(true)
+    expect(container.has('car')).toBe(true)
     expect(container.has('test')).toBe(false)
-    expect(container.hasInstance(Cat)).toBe(false)
-    expect(container.hasInstance('cat')).toBe(false)
+    expect(container.hasInstance(Car)).toBe(false)
+    expect(container.hasInstance('car')).toBe(false)
 
-    container.remove(Cat)
+    container.remove(Car)
 
-    expect(container.has(Cat)).toBe(false)
+    expect(container.has(Car)).toBe(false)
   })
 })
 
@@ -51,7 +51,7 @@ describe('test Inject, Injectable', () => {
     }
 
     @Injectable()
-    class Cat {
+    class Car {
       constructor (private readonly engine: Engine) {}
 
       start () {
@@ -66,13 +66,13 @@ describe('test Inject, Injectable', () => {
     const container = new Container()
 
     container.set(Engine)
-    container.set(Cat)
+    container.set(Car)
 
-    const cat = container.get(Cat)
+    const car = container.get(Car)
 
-    expect(cat.start()).toBe('start Engine')
-    expect(cat.constructor).toBe(Cat)
-    expect(cat.getEngine()).toBe(container.get(Engine))
+    expect(car.start()).toBe('start Engine')
+    expect(car.constructor).toBe(Car)
+    expect(car.getEngine()).toBe(container.get(Engine))
   })
 
   test('test Inject', () => {
@@ -87,7 +87,7 @@ describe('test Inject, Injectable', () => {
       }
     }
 
-    class Cat {
+    class Car {
       @Inject()
       private readonly engine: Engine
 
@@ -106,15 +106,15 @@ describe('test Inject, Injectable', () => {
     const container = new Container()
 
     container.set(Engine)
-    container.set(Cat)
+    container.set(Car)
     container.set('CONFIG', config)
 
-    const cat = container.get(Cat)
+    const car = container.get(Car)
 
-    expect(cat.start()).toBe('start Engine')
-    expect(cat.constructor).toBe(Cat)
-    expect(cat.getEngine()).toBe(container.get(Engine))
-    expect(cat.options).toBe(config)
-    expect(cat.options).toBe(container.get('CONFIG'))
+    expect(car.start()).toBe('start Engine')
+    expect(car.constructor).toBe(Car)
+    expect(car.getEngine()).toBe(container.get(Engine))
+    expect(car.options).toBe(config)
+    expect(car.options).toBe(container.get('CONFIG'))
   })
 })

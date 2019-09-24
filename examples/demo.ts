@@ -24,7 +24,7 @@ class Driver {
 }
 
 @Injectable('test')
-class Cat {
+class Car {
   @Inject()
   readonly engine: Engine;
 
@@ -40,22 +40,22 @@ class Cat {
 
 container.set(Engine)
 container.set(Driver)
-container.set(Cat)
-// container.set('test', Cat)
+container.set(Car)
+// container.set('test', Car)
 container.set('CONFIG', config)
 
-const cat = container.get(Cat)
+const car = container.get(Car)
 
-console.log(cat)
+console.log(car)
 console.log(container)
 
-cat.start()
-cat.driver.say()
+car.start()
+car.driver.say()
 
-const cat1 = container.get<Cat>('test')
-const cat2 = container.get<Cat>('test')
+const car1 = container.get<Car>('test')
+const car2 = container.get<Car>('test')
 
-console.log(cat1, cat === container.get(Cat), cat2 === cat, cat1 === cat2)
+console.log(car1, car === container.get(Car), car2 === car, car1 === car2)
 
 const conf = container.get<ConfigType>('CONFIG')
 

@@ -1,5 +1,5 @@
 {
-  "name": "locjs",
+  "name": "iocjs",
   "version": "0.1.0",
   "description": "Implements inversion of control and dependency injection base on javascript",
   "main": "src/index.ts",

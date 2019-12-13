@@ -1,4 +1,4 @@
-# Loc
+# IoC
 
 通过 typescript 实现的控制反转依赖注入
 
@@ -7,7 +7,7 @@
 
 
 ```ts
-import { Container, Inject, Injectable } from 'locjs'
+import { Container, Inject, Injectable } from 'iocjs'
 
 class Engine {
   start () {
